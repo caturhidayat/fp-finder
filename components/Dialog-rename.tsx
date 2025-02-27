@@ -1,7 +1,7 @@
 "use client";
 
+import { TFaktur } from "@/app/table/columns";
 import { Button } from "./ui/button";
-import { TFaktur } from "@/app/faktur/columns";
 import {
     Drawer,
     DrawerContent,

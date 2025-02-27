@@ -1,7 +1,7 @@
 "use client";
 
 
-import { TFaktur } from "@/app/faktur/columns";
+import { TFaktur } from "@/app/table/columns";
 import {
   Table,
   TableBody,
