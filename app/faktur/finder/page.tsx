@@ -17,7 +17,7 @@ export default async function Home() {
 
         // console.log(await client.list())
 
-        const listFile = await client.list("/pdf");
+        const listFile = await client.list("/");
 
         // Ubah objek kompleks menjadi objek sederhana
         const serializedFiles: TFaktur[] = listFile.map((file, i) => ({
