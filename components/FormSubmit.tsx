@@ -151,7 +151,6 @@ export default function FormSubmit() {
             <Input
               id="npwp-pelanggan"
               placeholder="( 0010695286058000 ) Contoh Penulisan"
-              className="bg-white text-gray-400"
               value={npwpPelanggan}
               onChange={(e) => setNpwpPelanggan(e.target.value)}
             />
@@ -172,7 +171,6 @@ export default function FormSubmit() {
             <Input
               id="nomor-kuitansi"
               placeholder="( X18000001 atau WAC00001E) Contoh Penulisan"
-              className="bg-white text-gray-400"
               value={nomorKuitansi}
               onChange={(e) => setNomorKuitansi(e.target.value)}
             />
