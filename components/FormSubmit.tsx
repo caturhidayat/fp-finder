@@ -24,32 +24,32 @@ export default function FormSubmit() {
 
   const handleDownloadFaktur = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!npwpPelanggan) {
       setError("NPWP Pelanggan harus diisi");
       return;
     }
-    
+
     if (!nomorKuitansi) {
       setError("Nomor Kuitansi harus diisi");
       return;
     }
-    
+
     // Validate that the input is exactly as expected
     // Remove any spaces from the input
     const trimmedNomorKuitansi = nomorKuitansi.trim();
-    
+
     // Check if the receipt number matches expected format (can be customized)
     // For example, if receipt numbers should be alphanumeric and at least 5 characters
     if (trimmedNomorKuitansi.length < 5) {
-      setError("Nomor Kuitansi harus lengkap (minimal 5 karakter)");
+      setError("Nomor Kuitansi harus lengkap (minimal 5 karakter) 🚨");
       return;
     }
-    
+
     setLoading(true);
     setError(null);
     setSuccess(null);
-    
+
     try {
       const response = await fetch("/api/download", {
         method: "POST",
@@ -61,20 +61,21 @@ export default function FormSubmit() {
           nomorKuitansi: trimmedNomorKuitansi,
         }),
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Gagal mengunduh faktur");
+        throw new Error(errorData.error || "Gagal mengunduh faktur 🚨");
       }
-      
+
       // Get the filename from the Content-Disposition header
       const contentDisposition = response.headers.get("Content-Disposition");
-      const filenameMatch = contentDisposition && contentDisposition.match(/filename="(.+)"/);
+      const filenameMatch =
+        contentDisposition && contentDisposition.match(/filename="(.+)"/);
       const filename = filenameMatch ? filenameMatch[1] : "faktur.pdf";
-      
+
       // Convert response to blob
       const blob = await response.blob();
-      
+
       // Create a download link and trigger download
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -82,14 +83,18 @@ export default function FormSubmit() {
       link.download = filename;
       document.body.appendChild(link);
       link.click();
-      
+
       // Clean up
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
-      
-      setSuccess(`Faktur berhasil diunduh: ${filename}`);
+
+      setSuccess(`Faktur berhasil diunduh 🎉: ${filename}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Terjadi kesalahan saat mengunduh faktur");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Terjadi kesalahan saat mengunduh faktur 🚨"
+      );
     } finally {
       setLoading(false);
     }
@@ -97,16 +102,16 @@ export default function FormSubmit() {
 
   return (
     <Card className="w-full max-w-2xl p-6">
-      <form className="space-y-4" onSubmit={handleDownloadFaktur}>
-        <div className="grid grid-cols-12 items-center bg-gray-100 p-2">
+      <form className="" onSubmit={handleDownloadFaktur}>
+        <div className="grid grid-cols-12 items-center p-2">
           <Label
             htmlFor="npwp-yusen"
-            className="col-span-4 text-blue-600 font-medium"
+            className="col-span-4 text-blue-600 font-semibold"
           >
-            1. NPWP Yusen Logistics
+            NPWP Yusen Logistics
           </Label>
           <div className="col-span-8">
-            <Select 
+            <Select
               defaultValue={npwpYusen}
               onValueChange={(value) => setNpwpYusen(value)}
             >
@@ -126,9 +131,9 @@ export default function FormSubmit() {
         <div className="grid grid-cols-12 items-center p-2">
           <Label
             htmlFor="nomor-seri"
-            className="col-span-4 text-blue-600 font-medium"
+            className="col-span-4 text-blue-600 font-semibold"
           >
-            2. Seri Faktur Pajak
+            Seri Faktur Pajak
           </Label>
           <div className="col-span-8">
             <Input
@@ -140,12 +145,12 @@ export default function FormSubmit() {
           </div>
         </div>
 
-        <div className="grid grid-cols-12 items-center bg-gray-100 p-2">
+        <div className="grid grid-cols-12 items-center p-2">
           <Label
             htmlFor="npwp-pelanggan"
-            className="col-span-4 text-blue-600 font-medium"
+            className="col-span-4 text-blue-600 font-semibold"
           >
-            3. Nomor NPWP Pelanggan
+            Nomor NPWP Pelanggan
           </Label>
           <div className="col-span-8">
             <Input
@@ -163,9 +168,9 @@ export default function FormSubmit() {
         <div className="grid grid-cols-12 items-center p-2">
           <Label
             htmlFor="nomor-kuitansi"
-            className="col-span-4 text-blue-600 font-medium"
+            className="col-span-4 text-blue-600 font-semibold"
           >
-            4. Nomor Kuitansi
+            Nomor Kuitansi
           </Label>
           <div className="col-span-8">
             <Input
@@ -193,12 +198,12 @@ export default function FormSubmit() {
         )}
 
         <div className="border-t border-gray-200 pt-4">
-          <Button 
-            type="submit" 
-            className="bg-gray-700 hover:bg-gray-800"
+          <Button
+            type="submit"
+            className="bg-teal-500 hover:bg-teal-600"
             disabled={loading}
           >
-            {loading ? "Mengunduh..." : "Download Faktur"}
+            {loading ? "Downloading..." : "Download Faktur"}
           </Button>
         </div>
       </form>
