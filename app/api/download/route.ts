@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       });
 
       // Navigate to the PDF directory
-      await client.cd("/pdf");
+      await client.cd("/");
 
       // List all files in the directory
       const files = await client.list();
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
       console.error("FTP Error:", ftpError);
       client.close();
       return NextResponse.json(
-        { error: "Gagal mengakses server FTP" },
+        { error: "Gagal mengakses server" },
         { status: 500 }
       );
     }
