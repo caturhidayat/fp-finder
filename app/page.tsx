@@ -45,7 +45,7 @@ export default async function Page() {
                     <span className="font-bold">
                       NPWP PT Yusen Logistics Container Depot Indonesia:{" "}
                     </span>
-                    <strong>0109997585000000</strong>
+                    <strong>0109997585004000</strong>
                   </p>
                   <p>
                     <span className="font-bold">
