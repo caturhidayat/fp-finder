@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import { Button } from "./ui/button";
@@ -26,15 +26,17 @@ export default function Footer() {
                 <div>
                   <h2 className="text-2xl font-medium text-gray-900">INFO :</h2>
 
-                  <p className="mt-4 max-w-lg text-orange-500 text-sm">
+                  <p className="mt-4 max-w-lg text-orange-500 text-xs">
                     Permintaan faktur pajak melalui email hanya untuk faktur
                     pajak revisi dan faktur pajak masa Januari 2025 keatas,
                     selebihnya tidak dapat kami proses. Jika ada pertanyaan
                     lebih lanjut terkait permintaan faktur pajak kegiatan Lift
                     On/Off, silahkan menghubungi ke bagian pajak kami di 021-460
-                    8720 ext. 221 dengan Tim TAX atau email ke
-                    e.faktur@id.yusen-logistics.com (dengan melampirkan scan
-                    kuitansi dan NPWP yang sesuai).
+                    8720 ext. 221 dengan Tim TAX atau email ke :
+                    <strong className="text-blue-500 hover:text-blue-600 pl-1">
+                      e.faktur@id.yusen-logistics.com
+                    </strong>{" "}
+                    (dengan melampirkan scan kuitansi dan NPWP yang sesuai).
                   </p>
                 </div>
 
@@ -82,7 +84,7 @@ export default function Footer() {
                 <div>
                   <h2 className="text-2xl font-medium text-gray-900">NOTE :</h2>
 
-                  <p className="mt-4 max-w-lg text-orange-500 text-sm">
+                  <p className="mt-4 max-w-lg text-orange-500 text-xs">
                     Segala macam koreksi, perubahan dan penerbitan faktur pajak
                     harus disertakan dokumen pendukung yang sesuai. Dengan
                     ketentuan, batas waktu pengajuan revisi atau penerbitan

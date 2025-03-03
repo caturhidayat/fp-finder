@@ -16,6 +16,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function FormSubmit() {
   const [npwpYusen, setNpwpYusen] = useState("0109997585004000");
+  const [nomorSeri, setNomorSeri] = useState("0000000000000000");
   const [npwpPelanggan, setNpwpPelanggan] = useState("");
   const [nomorKuitansi, setNomorKuitansi] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,11 @@ export default function FormSubmit() {
 
   const handleDownloadFaktur = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if(!npwpYusen) {
+      setError("NPWP Yusen harus diisi");
+      return;
+    }
 
     if (!npwpPelanggan) {
       setError("NPWP Pelanggan harus diisi");
@@ -37,6 +43,9 @@ export default function FormSubmit() {
 
     // Validate that the input is exactly as expected
     // Remove any spaces from the input
+    const trimmedNpwpYusen = npwpYusen.trim()
+    const trimmedNomorSeri = nomorSeri.trim()
+    const trimmedNpwpPelanggan = npwpPelanggan.trim()
     const trimmedNomorKuitansi = nomorKuitansi.trim();
 
     // Check if the receipt number matches expected format (can be customized)
@@ -57,7 +66,9 @@ export default function FormSubmit() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          npwpPelanggan: npwpPelanggan.trim(),
+          npwpYusen: trimmedNpwpYusen,
+          nomorSeri: trimmedNomorSeri,
+          npwpPelanggan: trimmedNpwpPelanggan,
           nomorKuitansi: trimmedNomorKuitansi,
         }),
       });
@@ -88,7 +99,7 @@ export default function FormSubmit() {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
 
-      setSuccess(`Faktur berhasil diunduh 🎉: ${filename}`);
+      setSuccess(`Faktur berhasil diunduh : ${filename} 🎉`);
     } catch (err) {
       setError(
         err instanceof Error
@@ -138,8 +149,9 @@ export default function FormSubmit() {
           <div className="col-span-8">
             <Input
               id="nomor-seri"
-              defaultValue="0000000000000000"
+              defaultValue={nomorSeri}
               className="bg-white"
+              onChange={(e) => setNomorSeri(e.target.value)}
               disabled
             />
           </div>
